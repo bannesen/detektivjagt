@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    header {
+      text-align: center;
+      color: yellow;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .input-container {
+      display: flex;
+    }
+
+    input, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      width: 40px;
+      text-align: center;
+    }
+
+    button {
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .result-box {
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid white;
+      font-size: 25px;
+      font-weight: bold;
+      word-wrap: break-word; /* or use overflow-wrap: break-word; */
+    }
+  </style>
+  <title>Combination Checker</title>
+</head>
+<body>
+
+<header>
+  <h1>Dektektivsporet</h1>
+  <h2>Her skal du begynde med at indtaste Bibliotekets postnummer</h2>
+</header>
+
+<div class="input-container">
+  <input type="text" id="digit1" maxlength="1" placeholder="D1" oninput="moveToNextBox(1)">
+  <input type="text" id="digit2" maxlength="1" placeholder="D2" oninput="moveToNextBox(2)">
+  <input type="text" id="digit3" maxlength="1" placeholder="D3" oninput="moveToNextBox(3)">
+  <input type="text" id="digit4" maxlength="1" placeholder="D4" oninput="moveToNextBox(4)" onkeydown="handleEnterKey(event)">
+</div>
+<button onclick="checkCombination()">Send</button>
+<div id="result" class="result-box"></div>
+
+<script>
+  function checkCombination() {
+    var digit1 = document.getElementById('digit1').value;
+    var digit2 = document.getElementById('digit2').value;
+    var digit3 = document.getElementById('digit3').value;
+    var digit4 = document.getElementById('digit4').value;
+    var resultDiv = document.getElementById('result');
+
+    var combination = digit1 + digit2 + digit3 + digit4;
+
+    switch (combination) {
+	case '7800':
+        resultDiv.innerHTML = 'Det næste tal får du ved at trække antallet af loftslamper på børnebiblioteket fra tallet 1295';
+        break;	
+      case '1212':
+        resultDiv.innerHTML = 'Det næste tal er DK5 nummeret på Sebastian Kleins bog - Verdens farligste edderkopper';
+        break;
+      case '5843':
+        resultDiv.innerHTML = 'Næste tal får du ved at skrive udgivelsesåret på den ældste Harry Potter og de vises sten bog som børnebiblioteket har';
+        break;
+      case '2016':
+        resultDiv.innerHTML = 'Find næste tal ved at tælle antallet af vogne med bøger i kategorien "Lette" og gang tallet med 1002';
+        break;
+	  case '6012':
+        resultDiv.innerHTML = 'Næste tal finder du ved at indtaste intervallet på det faglitteraturskilt med de laveste numre';
+        break;     
+	  case '0049':
+        resultDiv.innerHTML = 'Du er en sand detektiv. Det hemmelige kodeord er onomatopoeitikon. Giv det til en bibliotekar og få et sejt detektivbadge';
+        lyd.play(); // Play sound on correct answer
+        break;
+      // Add more cases as needed
+      default:
+        resultDiv.innerHTML = 'Desværre - dit svar var forkert';
+    }
+
+    // Clear input fields after checking combination
+    document.getElementById('digit1').value = '';
+    document.getElementById('digit2').value = '';
+    document.getElementById('digit3').value = '';
+    document.getElementById('digit4').value = '';
+
+    // Set focus back to the first input field
+    document.getElementById('digit1').focus();
+
+    // Hide the result after 10 seconds
+    setTimeout(function() {
+      resultDiv.innerHTML = '';
+    }, 15000);
+  }
+
+  function moveToNextBox(currentBox) {
+    var nextBox = currentBox + 1;
+    if (nextBox <= 4) {
+      document.getElementById('digit' + nextBox).focus();
+    }
+  }
+
+  function handleEnterKey(event) {
+    if (event.key === 'Enter') {
+      checkCombination();
+    }
+  }
+</script>
+
+</body>
+</html>
